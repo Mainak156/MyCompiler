@@ -1,8 +1,11 @@
 %{
 #include "ast.h"
 #include "parser.tab.h"
+#include "symtab.h"
+
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 %}
 
 %%
@@ -24,6 +27,11 @@
 \".*\"      { yylval.str = strdup(yytext); return STRING; }
 
 [a-zA-Z_][a-zA-Z0-9_]* {
+    insert_symbol(yytext, 1);
+    Symbol* s = lookup(yytext);
+
+    printf("id%d ", s->id);   // 🔥 TOKEN FORMAT
+
     yylval.str = strdup(yytext);
     return ID;
 }

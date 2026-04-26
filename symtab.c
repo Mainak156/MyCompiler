@@ -6,6 +6,7 @@
 #define SIZE 97
 
 Symbol* table[SIZE] = {0};
+int symbol_count = 0;
 
 int hash(char *s) {
     int h=0;
@@ -14,12 +15,16 @@ int hash(char *s) {
 }
 
 void insert_symbol(char *name, int type) {
-    if(lookup(name)) return; // avoid duplicates
+    if (lookup(name)) return;   // avoid duplicates
 
     int h = hash(name);
+
     Symbol *s = (Symbol*)malloc(sizeof(Symbol));
     strcpy(s->name, name);
     s->type = type;
+
+    s->id = ++symbol_count;     // 🔥 assign id
+
     s->next = table[h];
     table[h] = s;
 }
@@ -35,15 +40,14 @@ Symbol* lookup(char *name) {
     return NULL;
 }
 
-/* 🔥 NEW: PRINT SYMBOL TABLE */
 void print_symbol_table() {
     printf("\n--- SYMBOL TABLE ---\n");
-    printf("Name\tType\n");
+    printf("Index\tLexeme\tToken\n");
 
-    for(int i=0;i<SIZE;i++) {
+    for(int i = 0; i < SIZE; i++) {
         Symbol *s = table[i];
         while(s) {
-            printf("%s\tint\n", s->name);
+            printf("%d\t%s\tid%d\n", s->id, s->name, s->id);
             s = s->next;
         }
     }
