@@ -1,24 +1,31 @@
-@echo on
+@echo off
+cls
 color 0A
+title Mini Compiler
 
 echo =====================================
-echo STARTING BUILD
+echo        MINI COMPILER
 echo =====================================
+echo.
 
-echo Cleaning...
-del *.exe *.tab.c *.tab.h lex.yy.c
+echo [1/4] Cleaning...
+del *.exe *.tab.c *.tab.h lex.yy.c >nul 2>&1
 
-echo Running Flex...
-win_flex lexer.l
+echo [2/4] Running Flex...
+win_flex lexer.l >nul
 
-echo Running Bison...
-win_bison -d parser.y
+echo [3/4] Running Bison...
+win_bison -d parser.y >nul
 
-echo Compiling...
-gcc lex.yy.c parser.tab.c ast.c symtab.c ir.c opt.c codegen.c main.c -o compiler.exe
+echo [4/4] Compiling...
+gcc lex.yy.c parser.tab.c ast.c symtab.c ir.c opt.c codegen.c main.c -o compiler.exe >nul
 
-echo Running program...
+echo.
+echo ===== RUNNING PROGRAM =====
+echo.
+
 compiler.exe < input.c
 
-echo DONE
+echo.
+echo ===== DONE =====
 pause
