@@ -49,5 +49,8 @@ void print_ir() {
 
         else if(strcmp(quads[i].op,"print")==0)
             printf("print %s\n", quads[i].arg1);
+
+        else if(strcmp(quads[i].op,"return")==0)
+            printf("return %s\n", quads[i].arg1);
     }
 }
