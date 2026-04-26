@@ -1,3 +1,8 @@
+cls
+echo Loading Mini Compiler...
+timeout /t 1 >nul
+cls
+
 @echo off
 cls
 color 0A
