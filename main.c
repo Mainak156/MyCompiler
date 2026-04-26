@@ -10,8 +10,6 @@ void print_symbol_table();
 
 int main() {
 
-    printf("Enter code:\n");
-
     yyparse();
 
     print_symbol_table();
